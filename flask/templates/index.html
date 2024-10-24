@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Keyboard</title>
+    <style>
+        button {
+            border: none;
+            background-color: orange;
+            color: white;
+            padding: 10px 22px;
+            text-align: center;
+            display: inline-block;
+            font-size: 18px;
+            margin: 4px 2px;
+        }
+
+        body {
+            font-family: Arial;
+            text-align: center;
+            color: white;
+            background-color: black;
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr); /* Sắp xếp 6 cột */
+            grid-gap: 10px; /* Khoảng cách giữa các ảnh */
+            justify-items: center; /* Căn giữa từng ảnh */
+            margin-top: 20px;
+        }
+
+        .image-item {
+            max-width: 100%; /* Chiều rộng tối đa là 100% của phần tử cha */
+            height: auto; /* Đảm bảo tỷ lệ khung hình */
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Keyboard</h1>
+    <br>
+
+    <form action="/" method="post" enctype="multipart/form-data">
+        <div class="myDiv">
+            <p>Chọn thư mục chứa ảnh để dự đoán</p>
+            <input type="file" name="image_folder" webkitdirectory directory multiple>
+            <button type="submit">Dự đoán</button>
+        </div>
+        <br>
+
+        {% if prediction_result %}
+        <div class="myDiv">
+            <label>{{ prediction_result }}</label>
+        </div>
+        {% endif %}
+
+        <!-- Hiển thị ảnh -->
+        <div class="image-grid">
+            {% for image_path in image_paths %}
+            <div class="image-item">
+                <img src="{{ url_for('uploaded_file', filename=image_path) }}" class="img-thumbnail" alt="Uploaded Image">
+            </div>
+            {% endfor %}
+        </div>
+    </form>
+    <br>
+
+</body>
+
+</html>
